@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public enum Command{
     ARRIVED, //fades in
     LEFT,   // fades out
-    TRAVERSED_TO // changes scene
+    TRAVERSED_TO, // changes scene,
+    FADE_TO_BLACK // fades out everything
 
 }
 
@@ -20,18 +21,41 @@ public class ThingToDo{
 public class TagParser : MonoBehaviour
 {
     public float fadeRate;
+
+    public float fadeToBlackRate;
     List<string> currentTags;
+    FadeImage[] allObjects;
+
+    void Start(){
+        allObjects = FindObjectsOfType(typeof(FadeImage)) as FadeImage[];
+    }
+
+
+    Command GetCommand(string text){
+        Command newCommand;
+        if (!Command.TryParse(text, true, out newCommand)){
+            throw new System.Exception("Invalid command! Your command " + text + " has not got any code attached to it");
+        }
+        return newCommand;
+    }
     void ParseCurrentTag(string tag){
         string[] unparsedText = tag.Split(' ');
         if (unparsedText.Length > 2){
             throw new System.Exception("Invalid tag! Your tag " + tag + " has more than two separate words. this is currently illegal");
         }
         Command newCommand;
-        if (!Command.TryParse(unparsedText[1], true, out newCommand)){
-            throw new System.Exception("Invalid command! Your command " + unparsedText[1] + " has not got any code attached to it");
+        string actorName;
+        if (unparsedText.Length == 1){
+            newCommand = GetCommand(unparsedText[0]);
+            actorName = "";
+        }
+        else{
+            newCommand = GetCommand(unparsedText[1]);
+            actorName = unparsedText[0];
         }
 
-        ParseCommand(newCommand, unparsedText[0]);
+
+        ParseCommand(newCommand, actorName);
 
     } 
 
@@ -55,6 +79,12 @@ public class TagParser : MonoBehaviour
             case (Command.TRAVERSED_TO):
                 SceneManager.LoadScene(actorName);
                 break;
+            case (Command.FADE_TO_BLACK):
+            Debug.Log("HI IM FADING");
+                FadeAllOut();
+                break;
+
+
         }
 
     }
@@ -69,6 +99,12 @@ public class TagParser : MonoBehaviour
         }
         else{
             fader.FadeOut(fadeRate);
+        }
+    }
+
+    void FadeAllOut(){
+        foreach (FadeImage obj in allObjects){
+            obj.FadeOut(fadeToBlackRate);
         }
     }
 

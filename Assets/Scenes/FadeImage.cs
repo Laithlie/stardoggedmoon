@@ -37,6 +37,7 @@ public class FadeImage : MonoBehaviour
 
     public void FadeOut(float fadeRate)
     {
+        loaderSaver.ClearVisibleObject(gameObject);
         FadeRate = fadeRate;
         this.targetAlpha = 0.0f;
     }

@@ -33,6 +33,7 @@ The bird had a gash across her back where my master had cut it. A mistake that h
     -> dreamquestion
 + “I don’t like being at a disadvantage”
     “No? Well maybe you’re playing for the wrong team. You’ve seen now what the world could look like if we let them through.”
+    #fade_to_black #Background arrived #Jack arrived #Girl arrived
     -> dreamquestion
 == dreamquestion ==
 + “We’ve seen the dreamlands before. Being trapped there was no more pleasant”

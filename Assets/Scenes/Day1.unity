@@ -487,6 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeRate: 2
+  fadeToBlackRate: 5
 --- !u!224 &356907229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2383649679330329724, guid: fd781d2c8f1857242a9a981e82d91c51,

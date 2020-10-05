@@ -9,9 +9,9 @@ using System.IO;
 [System.Serializable]
 public class SaveData{
    public string savedState;
-   public List<string> visibleObjects;
+   public HashSet<string> visibleObjects;
 
-   public SaveData(StoryState state, List<string> objects){
+   public SaveData(StoryState state, HashSet<string> objects){
        savedState = state.ToJson();
        visibleObjects = objects;
    }
@@ -22,7 +22,7 @@ public class LoaderSaver : MonoBehaviour
     [HideInInspector]
     public bool hasSaved = false;
 
-    List<string> visibleObjects = new List<string>();
+    HashSet<string> visibleObjects = new HashSet<string>();
     // Start is called before the first frame update
     void Awake(){
         hasSaved = PlayerPrefs.HasKey("lastScene");
@@ -42,6 +42,9 @@ public class LoaderSaver : MonoBehaviour
 
     public void Save(StoryState state){
         SaveData toSave = new SaveData(state, visibleObjects);
+        while(IsFileLocked()){
+            
+        }
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
         binaryFormatter.Serialize(file, toSave);
@@ -71,7 +74,41 @@ public class LoaderSaver : MonoBehaviour
         visibleObjects.Add(visibleObject.name);
     }
 
-    public void ResetVisibleObjects(){
-        visibleObjects = new List<string>();
+    public void ClearVisibleObject(GameObject visibleObject){
+        if (visibleObjects.Contains(visibleObject.name)){
+            visibleObjects.Remove(visibleObject.name);
+        }
+        
     }
+
+    public void ResetVisibleObjects(){
+        visibleObjects = new HashSet<string>();
+    }
+
+    private bool IsFileLocked()
+{
+    FileInfo file = new FileInfo(Application.persistentDataPath + "/gamesave.save");
+    FileStream stream = null;
+
+    try
+    {
+        stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+    }
+    catch (IOException)
+    {
+        //the file is unavailable because it is:
+        //still being written to
+        //or being processed by another thread
+        //or does not exist (has already been processed)
+        return true;
+    }
+    finally
+    {
+        if (stream != null)
+            stream.Close();
+    }
+
+    //file is not locked
+    return false;
+}
 }

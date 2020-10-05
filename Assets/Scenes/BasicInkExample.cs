@@ -126,7 +126,7 @@ public class BasicInkExample : MonoBehaviour {
 		}
 	}
 
-	void LoadFade(List<string> visibleObjects){
+	void LoadFade(HashSet<string> visibleObjects){
 		foreach (string objectName in visibleObjects){
 			GameObject.Find(objectName).GetComponent<FadeImage>().FadeIn(10);
 		}
