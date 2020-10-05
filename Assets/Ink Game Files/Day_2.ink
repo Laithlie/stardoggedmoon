@@ -89,7 +89,7 @@ The manor loomed over us. Jack jumped down from the horse, and walked up to the 
 
 An grinning man burst through a door to our left. He wore a loose fitting mismatched suit and a long scarf.
 
-"Ah! Come in, come in. The man of the hour, back from his trip from parts unknown. I believe we have a lot to talk about. I'm Baron Lussa, but feel free to call me "
+"Ah! Come in, come in. The man of the hour, back from his trip from parts unknown. I believe we have a lot to talk about. I'm Baron Lussa, but feel free to call me the Baron."
 
 + I ran up, and sniffed him
     ->petthedog
@@ -101,7 +101,7 @@ An grinning man burst through a door to our left. He wore a loose fitting mismat
     "Ah, well that is my reponsibility," the Baron replied, while searching through a box, "I have access to the knowledge of both my flock, and of the Word. And the Elders are quite important to our culture." He tossed me an elderly snack.
     
 + I caught it in my mouth.
-    ...And quickly dropped it.
+    And quickly dropped it.
     -> snack
 + I let it fall to the ground.
     -> snack
@@ -109,7 +109,9 @@ An grinning man burst through a door to our left. He wore a loose fitting mismat
    "You worship them? Then why are you a closer?" My master asked.
     
     "Worship? Most of the Word doesn't go in for that any more. But we remain Gods-fearing folk. We've always been closer to them here, I'm not surprised that they're finally breaking through."
-    
++ next
+    -> snackcont
+== snackcont ==
     "Well, we have a lot of catching up to do." Jack wandered to the window. Our opponents have a great deal of power behind them, I am currently at my weakest, my preparations have been disrupted, and the closing wand went missing when I was forced into the dreamlands."
     
     "Ah, well on that point I have good news. Toby, boy, could have a look in that chest over there?"
@@ -119,10 +121,12 @@ An grinning man burst through a door to our left. He wore a loose fitting mismat
 == wand ==
 The wand was there, nestled in silk. I grabbed it, the cold iron between my teeth, and carried it to my surprised master.
 "I thought it best not to leave it alone in your bothy. On your other points, I may be able to provide some assistance. 
++ Next
+    -> wandcont
+==wandcont==
 While we no longer act in support of the Elders, my congregation is inured to, ah, sacrifice. I have a young girl who would be—"
 "Unlikely to help. Blood opens gates. It's less effective than closing."
 "Perhaps. But the openers will not have access to such an opportunity, on their abandoned isle. You draw your power from flesh, I believe. If your preparations have been broken, couldn't this provide the energy you need?
-    
 My master turned to me, a pained look on his face.
 
 + I nodded
@@ -147,10 +151,10 @@ Cal galloped towards the ocean. We could still see the bird heading back to the 
 + Then, on the opposite bank, we saw them.
     -> cameo
 == cameo ==
-#Bird arrived 5 #Girl arrived 10 #Hag arrived 7
+#Bird arrived 5 #Girl arrived 10 #Hag arrived 7 #Horse left #Jack left #Dog left
 The bird landed on the girl's shoulder. She looked at us with cold hatred, then turned away. The hag stood there for longer, standing beside her cat. Then she turned, and disappeared.
 
 + We jumped off Cal when he reached the shore, but they had already gone.
-#Bird left 10 #Girl left 10 #Hag left 10
+#Bird left 10 #Girl left 10 #Hag left 10 #fade_to_black
     
 -> DONE
