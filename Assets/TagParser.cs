@@ -19,8 +19,7 @@ public class ThingToDo{
 
 public class TagParser : MonoBehaviour
 {
-
-    
+    public float fadeRate;
     List<string> currentTags;
     void ParseCurrentTag(string tag){
         string[] unparsedText = tag.Split(' ');
@@ -66,10 +65,10 @@ public class TagParser : MonoBehaviour
             throw new System.Exception("Queried gameobject " + thing + " does not have a fade script attached to it! please fix this");
         }
         if (weWantYouVisibleToday){
-            fader.FadeIn();
+            fader.FadeIn(fadeRate);
         }
         else{
-            fader.FadeOut();
+            fader.FadeOut(fadeRate);
         }
     }
 

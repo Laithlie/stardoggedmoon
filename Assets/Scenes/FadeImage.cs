@@ -31,13 +31,16 @@ public class FadeImage : MonoBehaviour
         }
     }
 
-    public void FadeOut()
+    public void FadeOut(float fadeRate)
     {
+        FadeRate = fadeRate;
         this.targetAlpha = 0.0f;
     }
 
-    public void FadeIn()
+    public void FadeIn(float fadeRate)
     {
+        
+        FadeRate = fadeRate;
         this.targetAlpha = 1.0f;
     }
 }
