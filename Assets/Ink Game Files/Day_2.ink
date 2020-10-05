@@ -106,11 +106,51 @@ An grinning man burst through a door to our left. He wore a loose fitting mismat
 + I let it fall to the ground.
     -> snack
 == snack ==
-    "You worship them? Then why are you a closer?" My master asked.
+   "You worship them? Then why are you a closer?" My master asked.
     
     "Worship? Most of the Word doesn't go in for that any more. But we remain Gods-fearing folk. We've always been closer to them here, I'm not surprised that they're finally breaking through."
     
-    "Hmm, well perhaps 
+    "Well, we have a lot of catching up to do." Jack wandered to the window. Our opponents have a great deal of power behind them, I am currently at my weakest, my preparations have been disrupted, and the closing wand went missing when I was forced into the dreamlands."
     
+    "Ah, well on that point I have good news. Toby, boy, could have a look in that chest over there?"
+    
++ I walked over to the open chest, and looked inside.
+    -> wand
+== wand ==
+The wand was there, nestled in silk. I grabbed it, the cold iron between my teeth, and carried it to my surprised master.
+"I thought it best not to leave it alone in your bothy. On your other points, I may be able to provide some assistance. 
+While we no longer act in support of the Elders, my congregation is inured to, ah, sacrifice. I have a young girl who would be—"
+"Unlikely to help. Blood opens gates. It's less effective than closing."
+"Perhaps. But the openers will not have access to such an opportunity, on their abandoned isle. You draw your power from flesh, I believe. If your preparations have been broken, couldn't this provide the energy you need?
+    
+My master turned to me, a pained look on his face.
+
++ I nodded
+    "Alright. But I must return to make preparations. Do you know the location of the ritual? We have yet to calculate it.
+    -> sacrifice
++I shook my head
+    No. We will find another way. I must return to make preparations. Do you know the location of the ritual? We have yet to calculate it.
+    -> sacrifice
+==sacrifice
+"Yes. I'm afraid it's less than convenient. The Corryvreckan whirlpool.
+
+At that, I heard the sound of wings from the window. The opposition had been listening in.
+
+"Damn," said the Baron. "You should go. Now. Take the horse.
+#Horse arrived 3 #Suit left 10
+
++ We rushed outside, and Jack heaved me onto the horse.
+    -> kelpie
+== kelpie ==
+Cal galloped towards the ocean. We could still see the bird heading back to the island. We reached the coast and then... kept running. The horse's legs faded into the water, as we raced across the gap, edging perilously close to the whirlpool.
+
++ Then, on the opposite bank, we saw them.
+    -> cameo
+== cameo ==
+#Bird arrived 5 #Girl arrived 10 #Hag arrived 7
+The bird landed on the girl's shoulder. She looked at us with cold hatred, then turned away. The hag stood there for longer, standing beside her cat. Then she turned, and disappeared.
+
++ We jumped off Cal when he reached the shore, but they had already gone.
+#Bird left 10 #Girl left 10 #Hag left 10
     
 -> DONE
