@@ -10,6 +10,7 @@ using System.IO;
 public class SaveData{
    public string savedState;
    public HashSet<string> visibleObjects;
+  
 
    public SaveData(StoryState state, HashSet<string> objects){
        savedState = state.ToJson();
@@ -23,8 +24,10 @@ public class LoaderSaver : MonoBehaviour
     public bool hasSaved = false;
 
     HashSet<string> visibleObjects = new HashSet<string>();
+    string fileName; 
     // Start is called before the first frame update
     void Awake(){
+        fileName = Application.persistentDataPath + "/gamesave.save";
         hasSaved = PlayerPrefs.HasKey("lastScene");
     }
 
@@ -42,11 +45,15 @@ public class LoaderSaver : MonoBehaviour
 
     public void Save(StoryState state){
         SaveData toSave = new SaveData(state, visibleObjects);
-        while(IsFileLocked()){
-            
-        }
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        FileStream file;
+        if (File.Exists(fileName)){
+            file = File.OpenWrite(fileName);
+        }
+        else{
+            file = File.Create(fileName);
+        }
+         
         binaryFormatter.Serialize(file, toSave);
         file.Close();
         
@@ -65,7 +72,7 @@ public class LoaderSaver : MonoBehaviour
 
     public SaveData LoadAllData(){
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        FileStream file = File.Open(fileName, FileMode.Open);
         SaveData save = (SaveData) binaryFormatter.Deserialize(file);
         return save;
     }
