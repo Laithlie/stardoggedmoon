@@ -1,3 +1,4 @@
+INCLUDE Day_2.ink
 Day 25. October 2020.
 #Jack arrived #Dog arrived #Bothy arrived
 -> returndream
@@ -33,7 +34,6 @@ The bird had a gash across her back where my master had cut it. A mistake that h
     -> dreamquestion
 + “I don’t like being at a disadvantage”
     “No? Well maybe you’re playing for the wrong team. You’ve seen now what the world could look like if we let them through.”
-    #fade_to_black #Bothy arrived #Jack arrived #Girl arrived
     -> dreamquestion
 == dreamquestion ==
 + “We’ve seen the dreamlands before. Being trapped there was no more pleasant”
@@ -54,5 +54,5 @@ The bird had a gash across her back where my master had cut it. A mistake that h
     ->endofday1
 == endofday1 ==
 With that, the cursed cuckoo flew away.
-#fade_to_white 0.5
--> DONE
++ Day 29.
+-> day2

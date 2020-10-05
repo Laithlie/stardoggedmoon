@@ -1,7 +1,8 @@
-Day 29. #dogfadein
+== day2 ==
+#fade_to_black 2000 #Bothy arrived #Dog arrived
 -> secondmorning
 == secondmorning ==
-The smell of seaweed woke me early in the evening. A horse poked its head through my window. It didn't appear wet, but the scent was unmistakeable.    #horse appeared 20
+The smell of seaweed woke me early in the evening. A horse poked its head through my window. It didn't appear wet, but the scent was unmistakeable. #Horse arrived 2
 
 "Good morning," it said, "My name is Cal, I'm looking for a Mr Jack."
 
@@ -14,7 +15,7 @@ The smell of seaweed woke me early in the evening. A horse poked its head throug
     -> jackcameback
     
 == jackcameback ==
-Jack stumbled into the room. He smelled of earth and mildew. It was my master. He stared at the horse.
+Jack stumbled into the room. He smelled of earth and mildew. It was my master. He stared at the horse. #Jack arrived 2
 
 Cal neighed, "Ah, is that him now? I have a letter for him tied around my neck.
 
@@ -32,6 +33,7 @@ He looked at the horse for a while.
 + We followed the horse out to the jetty. 
     -> motorboat
 == motorboat ==
+#Bothy left 4 #Cave arrived 4
 Beside the old rowboat we'd arrived in was a small motorboat piloted by a citrus-scented man wearing a formal suit. Big enough for me and my master, but far too small for the horse.
 
 "Get in and he'll take you across. I'll meet you at the other side."
@@ -51,6 +53,7 @@ Beside the old rowboat we'd arrived in was a small motorboat piloted by a citrus
     -> crossing
 
 == crossing ==
+# Horse left 5 #Cave left 2 #Whirlpool arrived 2
 It was a short crossing to Jura. The whirlpool between the two islands forced the boatman to take an indirect course. His lips remained set throughout the journey. His eyes rarely seemed to leave us.
 
 "I apologise for last night, Toby," said my master carefully, "I was feeling rather unwell."
@@ -65,6 +68,7 @@ It was a short crossing to Jura. The whirlpool between the two islands forced th
     Jack leaned back and remained silent for the rest of the trip. 
     -> fromhamlet
 == fromhamlet ==
+#Whirlpool left 2 #Hamlet arrived 2 #Horse arrived 2
 We moored up at the hamlet we'd arrived at. Cal was waiting for us.
 
 The boatman broke his silence. "Jump on Sir."
@@ -80,7 +84,7 @@ I addressed the horse.
     "Most of them, yes. Although we are left with something of a conundrum. I'm sure the Baron can explain further. Here we are."
     -> manorhouse
 == manorhouse ==
-
+#Suit arrived 2 #Horse left 5
 The manor loomed over us. Jack jumped down from the horse, and walked up to the door, which swung neatly open. The interior was dimly lit, but richly furnished. Dust and polish mingled in the air. 
 
 An grinning man burst through a door to our left. He wore a loose fitting mismatched suit and a long scarf.

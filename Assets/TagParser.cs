@@ -91,6 +91,10 @@ public class TagParser : MonoBehaviour
         string actorName;
         float param;
 
+        if (unparsedText[0] == "INCLUDE"){
+            Debug.Log("sup");
+            return;
+        }
 
         newCommand = GetCommand(unparsedText[0]);
         if (newCommand != Command.NOT_A_VALID_COMMAND){
@@ -100,7 +104,7 @@ public class TagParser : MonoBehaviour
         else{
             newCommand = GetCommand(unparsedText[1]);
             if (newCommand == Command.NOT_A_VALID_COMMAND){
-                throw new System.Exception("Command " + newCommand + " is not a valid command. Enter a valid one pls ");
+                throw new System.Exception("Command " + unparsedText[1] + " is not a valid command. Enter a valid one pls ");
             }
             actorName = unparsedText[0];
             param = GetParam(unparsedText, CommandType.ON_ONE);
@@ -113,7 +117,6 @@ public class TagParser : MonoBehaviour
 
     public void ParseAllTags(List<string> currentTags){
         foreach (string tag in currentTags){
-            Debug.Log(tag);
             ParseCurrentTag(tag);
         }
 
