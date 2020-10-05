@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+public enum CommandType {
+    ON_ONE,
+    ON_ALL
+}
 public enum Command{
     ARRIVED, //fades in
     LEFT,   // fades out
     TRAVERSED_TO, // changes scene,
     FADE_TO_BLACK, // fades out everything
-    FADE_TO_WHITE // fades also
+    FADE_TO_WHITE,
+    NOT_A_VALID_COMMAND // fades also
 
 }
 
@@ -37,28 +42,55 @@ public class TagParser : MonoBehaviour
     Command GetCommand(string text){
         Command newCommand;
         if (!Command.TryParse(text, true, out newCommand)){
-            throw new System.Exception("Invalid command! Your command " + text + " has not got any code attached to it");
+            return Command.NOT_A_VALID_COMMAND;
         }
         return newCommand;
     }
+
+    float StringToFloat(string text){
+        float param;
+        if (float.TryParse(text, out param)){
+                return param;
+            }
+            else {
+                throw new System.Exception("Parameter " + text + " cannot be parsed as float. Either leave parameter blank or enter a valid number");
+            }
+    }
+    float GetParam(string[] unparsedText, CommandType commandType){
+        if (commandType == CommandType.ON_ALL && unparsedText.Length == 2){
+            return StringToFloat(unparsedText[1]);
+        }
+        else if (commandType == CommandType.ON_ONE && unparsedText.Length == 3){
+            return StringToFloat(unparsedText[2]);
+        }
+        else {
+            return -1;
+        }
+    }
+
     void ParseCurrentTag(string tag){
         string[] unparsedText = tag.Split(' ');
-        if (unparsedText.Length > 2){
-            throw new System.Exception("Invalid tag! Your tag " + tag + " has more than two separate words. this is currently illegal");
-        }
         Command newCommand;
         string actorName;
-        if (unparsedText.Length == 1){
-            newCommand = GetCommand(unparsedText[0]);
+        float param;
+
+
+        newCommand = GetCommand(unparsedText[0]);
+        if (newCommand != Command.NOT_A_VALID_COMMAND){
+            param = GetParam(unparsedText, CommandType.ON_ALL);
             actorName = "";
         }
         else{
             newCommand = GetCommand(unparsedText[1]);
+            if (newCommand == Command.NOT_A_VALID_COMMAND){
+                throw new System.Exception("Command " + newCommand + " is not a valid command. Enter a valid one pls ");
+            }
             actorName = unparsedText[0];
+            param = GetParam(unparsedText, CommandType.ON_ONE);
         }
 
 
-        ParseCommand(newCommand, actorName);
+        ParseCommand(newCommand, actorName, param);
 
     } 
 
@@ -71,25 +103,25 @@ public class TagParser : MonoBehaviour
     }
 
 
-    void ParseCommand(Command command, string actorName) {
+    void ParseCommand(Command command, string actorName, float param) {
         GameObject actor = GameObject.Find(actorName);
         switch (command){
             case (Command.ARRIVED):
-                ToggleVisibility(actor, true);
+                ToggleVisibility(actor, true, param);
                 break;
             case (Command.LEFT):
-                ToggleVisibility(actor, false);
+                ToggleVisibility(actor, false, param);
                 break;
             case (Command.TRAVERSED_TO):
                 SceneManager.LoadScene(actorName);
                 break;
             case (Command.FADE_TO_BLACK):
                 ChangeBackGroundColour(Color.black);
-                FadeAllOut();
+                FadeAllOut(param);
                 break;
             case (Command.FADE_TO_WHITE):
                 ChangeBackGroundColour(Color.white);
-                FadeAllOut();
+                FadeAllOut(param);
                 break;
 
 
@@ -97,16 +129,19 @@ public class TagParser : MonoBehaviour
 
     }
 
-    void ToggleVisibility(GameObject thing, bool weWantYouVisibleToday){
+    void ToggleVisibility(GameObject thing, bool weWantYouVisibleToday, float rate){
+        if (rate == -1){
+            rate = fadeRate;
+        }
         FadeImage fader = thing.GetComponent<FadeImage>();
         if (fader == null){
             throw new System.Exception("Queried gameobject " + thing + " does not have a fade script attached to it! please fix this");
         }
         if (weWantYouVisibleToday){
-            fader.FadeIn(fadeRate);
+            fader.FadeIn(rate);
         }
         else{
-            fader.FadeOut(fadeRate);
+            fader.FadeOut(rate);
         }
     }
 
@@ -114,9 +149,12 @@ public class TagParser : MonoBehaviour
     void ChangeBackGroundColour(Color color){
         mainCamera.backgroundColor = color;
     }
-    void FadeAllOut(){
+    void FadeAllOut(float rate){
+        if (rate == -1){
+            rate = fadeToBlackRate;
+        }
         foreach (FadeImage obj in allObjects){
-            obj.FadeOut(fadeToBlackRate);
+            obj.FadeOut(rate);
         }
     }
 
