@@ -18,10 +18,10 @@ Jack stumbled to his feet.
 ==creepinggrin==
 This was not my master. It didn’t know. The smell of the thing (sweat, yeast, decay) had been hidden by the rot. I could now see it wore my master loosely. A grin crept into its eyes.
 “You discovered another player while I was asleep? Interesting. Well, while I have the wheel I’ll need to see my colleagues”.
-+ I watched as it opened the door, and left. #jackleft
++ I watched as it opened the door, and left. #Jack left
     -> ihearabirdie
 == ihearabirdie ==
-From the window came a voice. #birdarrived
+From the window came a voice. #Bird arrived
 
 “I hate to see you all alone, dog. It seems it’s not your year”
 

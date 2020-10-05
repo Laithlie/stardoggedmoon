@@ -5,14 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    LoaderSaver loaderSaver;
+    void Awake(){
+        loaderSaver = GetComponent<LoaderSaver>();
+    }
+
     public void GotoDay1Scene()
     {
-        SceneManager.LoadScene("Day 1");
+        loaderSaver.SetIsLoading(false);
+        SceneManager.LoadScene("Day1");
     }
 
     public void GotoMenuScene()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
     public void GotoCreditsScene()
     {
@@ -20,14 +26,14 @@ public class SceneSwitcher : MonoBehaviour
     }
     public void GotoDay2Scene()
     {
-        SceneManager.LoadScene("Day 2");
+        SceneManager.LoadScene("Day2");
     }
     public void GotoDay3Scene()
     {
-        SceneManager.LoadScene("Day 3");
+        SceneManager.LoadScene("Day3");
     }
     public void GotoDay4Scene()
     {
-        SceneManager.LoadScene("Day 4");
+        SceneManager.LoadScene("Day4");
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class FadeImage : MonoBehaviour
 {
     public float FadeRate;
+    
     private Image image;
     private float targetAlpha;
     // Use this for initialization

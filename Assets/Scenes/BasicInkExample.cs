@@ -5,9 +5,13 @@ using Ink.Runtime;
 // This is a super bare bones example of how to play and display a ink story in Unity.
 public class BasicInkExample : MonoBehaviour {
     public static event Action<Story> OnCreateStory;
+	TagParser tagParser;
+	LoaderSaver loaderSaver;
 	
     void Awake () {
 		// Remove the default message
+		loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>(); //HACKY - if GameController is not in scene, shits gonna break 
+		tagParser = GetComponent<TagParser>();
 		RemoveChildren();
 		StartStory();
 	}
@@ -16,6 +20,9 @@ public class BasicInkExample : MonoBehaviour {
 	void StartStory () {
 		story = new Story (inkJSONAsset.text);
         if(OnCreateStory != null) OnCreateStory(story);
+		if (loaderSaver.IsLoading()){
+			story.state.LoadJson(loaderSaver.LoadInkState());
+		}
 		RefreshView();
 	}
 	
@@ -30,6 +37,8 @@ public class BasicInkExample : MonoBehaviour {
 		while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
+			
+			tagParser.ParseAllTags(story.currentTags);
 			// This removes any white space from the text.
 			text = text.Trim();
 			// Display the text on screen!
@@ -38,6 +47,7 @@ public class BasicInkExample : MonoBehaviour {
 
 		// Display all the choices, if there are any!
 		if(story.currentChoices.Count > 0) {
+			Debug.Log(story.state.previousPointer.path);
 			for (int i = 0; i < story.currentChoices.Count; i++) {
 				Choice choice = story.currentChoices [i];
 				Button button = CreateChoiceView (choice.text.Trim ());
@@ -50,6 +60,7 @@ public class BasicInkExample : MonoBehaviour {
 		// If we've read all the content and there's no choices, the story is finished!
 		else {
 			Button choice = CreateChoiceView("End of story.\nRestart?");
+			loaderSaver.SetIsLoading(false);
 			choice.onClick.AddListener(delegate{
 				StartStory();
 			});
@@ -59,6 +70,7 @@ public class BasicInkExample : MonoBehaviour {
 	// When we click the choice button, tell the story to choose that choice!
 	void OnClickChoiceButton (Choice choice) {
 		story.ChooseChoiceIndex (choice.index);
+		loaderSaver.Save(story.state);
 		RefreshView();
 	}
 
@@ -93,6 +105,7 @@ public class BasicInkExample : MonoBehaviour {
 			GameObject.Destroy (canvas.transform.GetChild (i).gameObject);
 		}
 	}
+
 
 	[SerializeField]
 	private TextAsset inkJSONAsset = null;
