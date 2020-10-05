@@ -61,6 +61,7 @@ public class TagParser : MonoBehaviour
 
     public void ParseAllTags(List<string> currentTags){
         foreach (string tag in currentTags){
+            Debug.Log(tag);
             ParseCurrentTag(tag);
         }
 
@@ -80,7 +81,6 @@ public class TagParser : MonoBehaviour
                 SceneManager.LoadScene(actorName);
                 break;
             case (Command.FADE_TO_BLACK):
-            Debug.Log("HI IM FADING");
                 FadeAllOut();
                 break;
 

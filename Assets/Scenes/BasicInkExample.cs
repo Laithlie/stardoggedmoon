@@ -2,13 +2,17 @@
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ink.Runtime;
 // This is a super bare bones example of how to play and display a ink story in Unity.
 public class BasicInkExample : MonoBehaviour {
     public static event Action<Story> OnCreateStory;
 	TagParser tagParser;
 	LoaderSaver loaderSaver;
-	
+	Choice currentChoice;
+	float hackyDelayTimer;
+	float hackyDelayMaxTime = 0.3f;
+	bool hasClicked = false;
 
 	
 	
@@ -21,7 +25,20 @@ public class BasicInkExample : MonoBehaviour {
 	}
 
 	void Start(){
+		hackyDelayTimer = hackyDelayMaxTime;
 		StartStory();
+	}
+
+	void Update(){
+		if (hackyDelayTimer < hackyDelayMaxTime && hasClicked){
+			hackyDelayTimer += Time.deltaTime;
+		}
+		else if (hasClicked){
+			story.ChooseChoiceIndex (currentChoice.index);
+			loaderSaver.Save(story.state);
+			RefreshView();
+			hasClicked = false;
+		}
 	}
 
 	// Creates a new Story object with the compiled story which we can then play!
@@ -47,7 +64,6 @@ public class BasicInkExample : MonoBehaviour {
 		while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
-			
 			tagParser.ParseAllTags(story.currentTags);
 			// This removes any white space from the text.
 			text = text.Trim();
@@ -55,15 +71,16 @@ public class BasicInkExample : MonoBehaviour {
 			CreateContentView(text);
 		}
 
+		
+
 		// Display all the choices, if there are any!
 		if(story.currentChoices.Count > 0) {
-			Debug.Log(story.state.previousPointer.path);
 			for (int i = 0; i < story.currentChoices.Count; i++) {
 				Choice choice = story.currentChoices [i];
 				Button button = CreateChoiceView (choice.text.Trim ());
 				// Tell the button what to do when we press it
 				button.onClick.AddListener (delegate {
-					OnClickChoiceButton (choice);
+					OnClickChoiceButton(choice);
 				});
 			}
 		}
@@ -80,9 +97,10 @@ public class BasicInkExample : MonoBehaviour {
 
 	// When we click the choice button, tell the story to choose that choice!
 	void OnClickChoiceButton (Choice choice) {
-		story.ChooseChoiceIndex (choice.index);
-		loaderSaver.Save(story.state);
-		RefreshView();
+		currentChoice = choice;
+		hasClicked = true;
+		hackyDelayTimer = 0f;
+		
 	}
 
 	// Creates a textbox showing the the line of text

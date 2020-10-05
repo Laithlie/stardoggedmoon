@@ -30,6 +30,7 @@ public class FadeImage : MonoBehaviour
         float alphaDiff = Mathf.Abs(curColor.a - this.targetAlpha);
         if (alphaDiff > 0.0001f)
         {
+            //Debug.Log("At " +  gameObject.name + " lerpin from " + curColor.a + " to " + targetAlpha);
             curColor.a = Mathf.Lerp(curColor.a, targetAlpha, this.FadeRate * Time.deltaTime);
             this.image.color = curColor;
         }
@@ -44,8 +45,10 @@ public class FadeImage : MonoBehaviour
 
     public void FadeIn(float fadeRate)
     {
+        
         loaderSaver.RegisterVisibleObject(gameObject);
         FadeRate = fadeRate;
         this.targetAlpha = 1.0f;
+        //Debug.Log("Fading in " +  gameObject.name + " with curColour " + image.color.a + " and targetAlpha " + this.targetAlpha);
     }
 }
