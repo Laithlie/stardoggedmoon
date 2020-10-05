@@ -8,7 +8,8 @@ public enum Command{
     ARRIVED, //fades in
     LEFT,   // fades out
     TRAVERSED_TO, // changes scene,
-    FADE_TO_BLACK // fades out everything
+    FADE_TO_BLACK, // fades out everything
+    FADE_TO_WHITE // fades also
 
 }
 
@@ -25,9 +26,11 @@ public class TagParser : MonoBehaviour
     public float fadeToBlackRate;
     List<string> currentTags;
     FadeImage[] allObjects;
+    Camera mainCamera;
 
     void Start(){
         allObjects = FindObjectsOfType(typeof(FadeImage)) as FadeImage[];
+        mainCamera = Camera.main;
     }
 
 
@@ -71,7 +74,7 @@ public class TagParser : MonoBehaviour
     void ParseCommand(Command command, string actorName) {
         GameObject actor = GameObject.Find(actorName);
         switch (command){
-            case(Command.ARRIVED):
+            case (Command.ARRIVED):
                 ToggleVisibility(actor, true);
                 break;
             case (Command.LEFT):
@@ -81,6 +84,11 @@ public class TagParser : MonoBehaviour
                 SceneManager.LoadScene(actorName);
                 break;
             case (Command.FADE_TO_BLACK):
+                ChangeBackGroundColour(Color.black);
+                FadeAllOut();
+                break;
+            case (Command.FADE_TO_WHITE):
+                ChangeBackGroundColour(Color.white);
                 FadeAllOut();
                 break;
 
@@ -102,6 +110,10 @@ public class TagParser : MonoBehaviour
         }
     }
 
+
+    void ChangeBackGroundColour(Color color){
+        mainCamera.backgroundColor = color;
+    }
     void FadeAllOut(){
         foreach (FadeImage obj in allObjects){
             obj.FadeOut(fadeToBlackRate);

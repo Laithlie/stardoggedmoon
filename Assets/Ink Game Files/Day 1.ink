@@ -54,4 +54,5 @@ The bird had a gash across her back where my master had cut it. A mistake that h
     ->endofday1
 == endofday1 ==
 With that, the cursed cuckoo flew away.
+#fade_to_white
 -> DONE
