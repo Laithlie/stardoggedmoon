@@ -36,8 +36,8 @@ public class BasicInkExample : MonoBehaviour {
 		else if (hasClicked){
 			story.ChooseChoiceIndex (currentChoice.index);
 			loaderSaver.Save(story.state);
-			RefreshView();
 			hasClicked = false;
+			RefreshView();
 		}
 	}
 
@@ -45,11 +45,13 @@ public class BasicInkExample : MonoBehaviour {
 	void StartStory () {
 		story = new Story (inkJSONAsset.text);
         if(OnCreateStory != null) OnCreateStory(story);
+
 		if (loaderSaver.IsLoading()){
 			SaveData stuff = loaderSaver.LoadAllData();
 			story.state.LoadJson(stuff.savedState);
 			LoadFade(stuff.visibleObjects);
 		}
+
 		RefreshView();
 	}
 	
@@ -59,18 +61,18 @@ public class BasicInkExample : MonoBehaviour {
 	void RefreshView () {
 		// Remove all the UI on screen
 		RemoveChildren ();
-		
+		List<string> tags = new List<string>();
 		// Read all the content until we can't continue any more
 		while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
-			tagParser.ParseAllTags(story.currentTags);
+			tags.AddRange(story.currentTags);
 			// This removes any white space from the text.
 			text = text.Trim();
 			// Display the text on screen!
 			CreateContentView(text);
 		}
-
+		tagParser.ParseAllTags(tags);
 		
 
 		// Display all the choices, if there are any!

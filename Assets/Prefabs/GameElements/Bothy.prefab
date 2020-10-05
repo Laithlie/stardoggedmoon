@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2383649679330329727}
   - component: {fileID: 2383649679330329665}
   m_Layer: 5
-  m_Name: Bird
+  m_Name: Bothy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,4 +88,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb16dda1228ef14cadc7ca8c0ba1e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeRate: 10
+  FadeRate: 3
