@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 using Ink.Runtime;
 // This is a super bare bones example of how to play and display a ink story in Unity.
 public class BasicInkExample : MonoBehaviour {
@@ -10,11 +11,16 @@ public class BasicInkExample : MonoBehaviour {
 	
 
 	
+	
     void Awake () {
 		// Remove the default message
 		loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>(); //HACKY - if GameController is not in scene, shits gonna break 
 		tagParser = GetComponent<TagParser>();
 		RemoveChildren();
+		
+	}
+
+	void Start(){
 		StartStory();
 	}
 
@@ -23,7 +29,9 @@ public class BasicInkExample : MonoBehaviour {
 		story = new Story (inkJSONAsset.text);
         if(OnCreateStory != null) OnCreateStory(story);
 		if (loaderSaver.IsLoading()){
-			story.state.LoadJson(loaderSaver.LoadInkState());
+			SaveData stuff = loaderSaver.LoadAllData();
+			story.state.LoadJson(stuff.savedState);
+			LoadFade(stuff.visibleObjects);
 		}
 		RefreshView();
 	}
@@ -116,6 +124,13 @@ public class BasicInkExample : MonoBehaviour {
 		{
 			obj.FadeOut(1000);
 		}
+	}
+
+	void LoadFade(List<string> visibleObjects){
+		foreach (string objectName in visibleObjects){
+			GameObject.Find(objectName).GetComponent<FadeImage>().FadeIn(10);
+		}
+
 	}
 
 

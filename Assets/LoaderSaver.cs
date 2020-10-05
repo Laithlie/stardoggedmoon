@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.SceneManagement;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+
+[System.Serializable]
+public class SaveData{
+   public string savedState;
+   public List<string> visibleObjects;
+
+   public SaveData(StoryState state, List<string> objects){
+       savedState = state.ToJson();
+       visibleObjects = objects;
+   }
+}
 
 public class LoaderSaver : MonoBehaviour
 {
@@ -12,7 +25,7 @@ public class LoaderSaver : MonoBehaviour
     List<string> visibleObjects = new List<string>();
     // Start is called before the first frame update
     void Awake(){
-        hasSaved = PlayerPrefs.HasKey("inkSaveState");
+        hasSaved = PlayerPrefs.HasKey("lastScene");
     }
 
     public void SetIsLoading(bool isLoading){
@@ -28,11 +41,17 @@ public class LoaderSaver : MonoBehaviour
     }
 
     public void Save(StoryState state){
-        string savedState = state.ToJson();
-        PlayerPrefs.SetString("inkSaveState", savedState);
+        SaveData toSave = new SaveData(state, visibleObjects);
+        BinaryFormatter binaryFormatter = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        binaryFormatter.Serialize(file, toSave);
+        file.Close();
+        
         PlayerPrefs.SetString("lastScene", SceneManager.GetActiveScene().name);
 
     }
+
+    
 
     public void LoadLastScene(){
         if (PlayerPrefs.HasKey("lastScene")){
@@ -41,11 +60,11 @@ public class LoaderSaver : MonoBehaviour
         }
     }
 
-    public string LoadInkState(){
-        if (PlayerPrefs.HasKey("inkSaveState")){
-            return PlayerPrefs.GetString("inkSaveState");
-        }
-        return null;
+    public SaveData LoadAllData(){
+        BinaryFormatter binaryFormatter = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        SaveData save = (SaveData) binaryFormatter.Deserialize(file);
+        return save;
     }
 
     public void RegisterVisibleObject(GameObject visibleObject){

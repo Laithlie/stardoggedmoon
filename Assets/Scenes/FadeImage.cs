@@ -12,14 +12,14 @@ public class FadeImage : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>();
         this.image = this.GetComponent<Image>();
         if (this.image == null)
         {
             Debug.LogError("Error: No image on " + this.name);
         }
         this.targetAlpha = this.image.color.a;
-        loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>();
-        Debug.Log(loaderSaver);
+        
         FadeOut(100f);
     }
 
