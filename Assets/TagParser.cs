@@ -32,10 +32,27 @@ public class TagParser : MonoBehaviour
     List<string> currentTags;
     FadeImage[] allObjects;
     Camera mainCamera;
+    CanvasGroup inkCanvas;
 
+
+    void Awake(){
+        inkCanvas = GameObject.Find("InkCanvas").GetComponent<CanvasGroup>();
+    }
     void Start(){
         allObjects = FindObjectsOfType(typeof(FadeImage)) as FadeImage[];
         mainCamera = Camera.main;
+        
+    }
+
+    void ToggleCanvasVisibility(bool isVisible){
+        if (isVisible){
+            inkCanvas.alpha = 1;
+            inkCanvas.interactable = true;
+        }
+        else{
+            inkCanvas.alpha = 0;
+            inkCanvas.interactable = false;
+        }
     }
 
 
@@ -107,6 +124,7 @@ public class TagParser : MonoBehaviour
         GameObject actor = GameObject.Find(actorName);
         switch (command){
             case (Command.ARRIVED):
+                ToggleCanvasVisibility(true);
                 ToggleVisibility(actor, true, param);
                 break;
             case (Command.LEFT):
@@ -116,10 +134,12 @@ public class TagParser : MonoBehaviour
                 SceneManager.LoadScene(actorName);
                 break;
             case (Command.FADE_TO_BLACK):
+                ToggleCanvasVisibility(false);
                 ChangeBackGroundColour(Color.black);
                 FadeAllOut(param);
                 break;
             case (Command.FADE_TO_WHITE):
+                ToggleCanvasVisibility(false);
                 ChangeBackGroundColour(Color.white);
                 FadeAllOut(param);
                 break;
