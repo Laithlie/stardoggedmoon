@@ -1,4 +1,5 @@
 Day 25. October 2020.
+#Jack arrived #Dog arrived #Background arrived
 -> returndream
 
 == returndream ==

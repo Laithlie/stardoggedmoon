@@ -8,8 +8,9 @@ public class FadeImage : MonoBehaviour
     
     private Image image;
     private float targetAlpha;
+    LoaderSaver loaderSaver;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         this.image = this.GetComponent<Image>();
         if (this.image == null)
@@ -17,6 +18,9 @@ public class FadeImage : MonoBehaviour
             Debug.LogError("Error: No image on " + this.name);
         }
         this.targetAlpha = this.image.color.a;
+        loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>();
+        Debug.Log(loaderSaver);
+        FadeOut(100f);
     }
 
     // Update is called once per frame
@@ -39,7 +43,7 @@ public class FadeImage : MonoBehaviour
 
     public void FadeIn(float fadeRate)
     {
-        
+        loaderSaver.RegisterVisibleObject(gameObject);
         FadeRate = fadeRate;
         this.targetAlpha = 1.0f;
     }

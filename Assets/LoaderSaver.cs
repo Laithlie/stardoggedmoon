@@ -9,7 +9,7 @@ public class LoaderSaver : MonoBehaviour
     [HideInInspector]
     public bool hasSaved = false;
 
-    List<string> visibleObjects;
+    List<string> visibleObjects = new List<string>();
     // Start is called before the first frame update
     void Awake(){
         hasSaved = PlayerPrefs.HasKey("inkSaveState");
@@ -50,5 +50,9 @@ public class LoaderSaver : MonoBehaviour
 
     public void RegisterVisibleObject(GameObject visibleObject){
         visibleObjects.Add(visibleObject.name);
+    }
+
+    public void ResetVisibleObjects(){
+        visibleObjects = new List<string>();
     }
 }

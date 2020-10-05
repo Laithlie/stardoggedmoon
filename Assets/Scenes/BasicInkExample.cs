@@ -8,6 +8,8 @@ public class BasicInkExample : MonoBehaviour {
 	TagParser tagParser;
 	LoaderSaver loaderSaver;
 	
+
+	
     void Awake () {
 		// Remove the default message
 		loaderSaver = GameObject.Find("GameController").GetComponent<LoaderSaver>(); //HACKY - if GameController is not in scene, shits gonna break 
@@ -62,6 +64,7 @@ public class BasicInkExample : MonoBehaviour {
 			Button choice = CreateChoiceView("End of story.\nRestart?");
 			loaderSaver.SetIsLoading(false);
 			choice.onClick.AddListener(delegate{
+				ResetFade();
 				StartStory();
 			});
 		}
@@ -103,6 +106,15 @@ public class BasicInkExample : MonoBehaviour {
 		int childCount = canvas.transform.childCount;
 		for (int i = childCount - 1; i >= 0; --i) {
 			GameObject.Destroy (canvas.transform.GetChild (i).gameObject);
+		}
+	}
+
+	void ResetFade(){
+		loaderSaver.ResetVisibleObjects();
+		FadeImage[] allObjects = FindObjectsOfType(typeof(FadeImage)) as FadeImage[];
+		foreach(FadeImage obj in allObjects)
+		{
+			obj.FadeOut(1000);
 		}
 	}
 
